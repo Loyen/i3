@@ -1,0 +1,230 @@
+# Startup apps
+exec pulseaudio --start # Sound
+exec xscreensaver -no-splash # Screensaver
+#exec xcompmgr # Composition manager
+exec compton # Composition manager
+exec udiskie # Auto mount
+exec nitrogen --restore # Wallpaper
+
+# Mod button
+# Mod1 = Alt
+# Mod4 = Super
+set $alt Mod1
+set $super Mod4
+set $mod Mod4
+
+# Workspace names
+set $w1 1
+set $w2 2
+set $w3 3
+set $w4 4
+set $w5 5
+set $w6 6
+set $w7 7
+set $w8 8
+set $w9 9
+set $w10 10
+
+# Colors
+set $c_background     #334466
+set $c_text           #EEEEFF
+
+set $c_background_focused   #223355
+set $c_border_focused       #223355
+set $c_text_focused         #EEEEFF
+set $c_indicator_focused    #223355
+
+set $c_background_inactive  #334466
+set $c_border_inactive      #334466
+set $c_text_inactive        #EEEEFF
+set $c_indicator_inactive   #334466
+
+set $c_background_unfocused #334466
+set $c_border_unfocused     #334466
+set $c_text_unfocused       #EEEEFF
+set $c_indicator_unfocused  #334466
+
+set $c_background_urgent  #334466
+set $c_border_urgent      #334466
+set $c_text_urgent        #EEEEFF
+set $c_indicator_urgent   #334466
+
+# Color scheme            Border                Background              Text              Indicator
+client.focused            $c_border_focused     $c_background_focused   $c_text_focused   $c_indicator_focused
+client.focused_inactive   $c_border_inactive    $c_background_inactive  $c_text_inactive  $c_indicator_inactive
+client.unfocused          $c_border_unfocused   $c_background_unfocused $c_text_unfocused $c_indicator_unfocused
+client.urgent             $c_border_urgent      $c_background_urgent    $c_text_urgent    $c_indicator_urgent
+
+# Gaps
+
+gaps outer 32
+gaps inner 16
+
+# App menu
+bindsym $mod+space exec "rofi -show run -color-enabled -color-window '$c_background,$c_background_focused,$c_background,$c_background' -color-normal '$c_background,$c_text,$c_background,$c_background_focused,$c_text' -font 'Roboto Mono 12' -width 512 -location 2 -padding 0"
+
+# Notifications
+exec dunst -geometry "300x5-0+20" -fn "Roboto Mono 12" -lh 0 -s -lb "$c_background_unfocused" -lf "$c_text_unfocused" -lto 10 -nb "$c_background_unfocused" -nf "$c_text_unfocused" -nto 20 -cb "$c_background_urgent" -cf "$c_text_urgent" -cto 0
+
+# No window title bar
+new_window pixel 1px
+
+# Font
+font pango:Roboto Mono 9
+
+# Move floating windows
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec terminator
+
+# Kill window
+bindsym $mod+q kill
+
+# Sound
+bindsym $mod+i exec pamixer -i 10 -u
+bindsym $mod+k exec pamixer -d 10
+
+bindsym XF86AudioLowerVolumeexec pamixer -d 10
+bindsym XF86AudioRaiseVolumeexec pamixer -i 10 -u
+
+bindsym XF86AudioMute exec pamixer -t
+
+bindsym XF86MonBrightnessDownexec  xbacklight -dec 10
+bindsym XF86MonBrightnessUpexec  xbacklight -inc 10
+
+bindsym Print exec scrot
+bindsym $mod+$alt+1 exec scrot
+bindsym $mod+$alt+2 exec scrot
+bindsym $mod+$alt+3 exec scrot
+bindsym $mod+$alt+4 exec scrot
+
+bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+
+# change focus
+bindsym $mod+w focus up
+bindsym $mod+a focus left
+bindsym $mod+s focus down
+bindsym $mod+d focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+w move up
+bindsym $mod+Shift+a move left
+bindsym $mod+Shift+s move down
+bindsym $mod+Shift+d move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+z layout stacking
+bindsym $mod+x layout tabbed
+bindsym $mod+c layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Mod1+space floating toggle
+
+# focus the parent container
+bindsym $mod+p focus parent
+
+# focus the child container
+#bindsym $mod+Shift+p focus child
+
+# switch to workspace
+bindsym $mod+1 workspace $w1
+bindsym $mod+2 workspace $w2
+bindsym $mod+3 workspace $w3
+bindsym $mod+4 workspace $w4
+bindsym $mod+5 workspace $w5
+bindsym $mod+6 workspace $w6
+bindsym $mod+7 workspace $w7
+bindsym $mod+8 workspace $w8
+bindsym $mod+9 workspace $w9
+bindsym $mod+0 workspace $w10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $w1
+bindsym $mod+Shift+2 move container to workspace $w2
+bindsym $mod+Shift+3 move container to workspace $w3
+bindsym $mod+Shift+4 move container to workspace $w4
+bindsym $mod+Shift+5 move container to workspace $w5
+bindsym $mod+Shift+6 move container to workspace $w6
+bindsym $mod+Shift+7 move container to workspace $w7
+bindsym $mod+Shift+8 move container to workspace $w8
+bindsym $mod+Shift+9 move container to workspace $w9
+bindsym $mod+Shift+0 move container to workspace $w10
+
+# Session menu
+bindsym Control+Shift+Escape exec "i3-nagbar -t warning -m 'Choose action.' -b 'Logout' 'i3-msg exit' -b 'Reboot' 'i3-msg reboot' -b 'Shutdown' 'i3-msg poweroff'"
+bindsym Control+$mod+R exec i3-msg reload
+bindsym Control+$mod+Shift+R exec i3-msg restart
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+  # These bindings trigger as soon as you enter the resize mode
+
+  # Resize window
+  bindsym w resize shrink height 10 px or 10 ppt
+  bindsym a resize shrink width 10 px or 10 ppt
+  bindsym s resize grow height 10 px or 10 ppt
+  bindsym d resize grow width 10 px or 10 ppt
+
+  # same but with arrows
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+  bindsym Right resize grow width 10 px or 10 ppt
+
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+# status_command i3status --config ~/.i3/status
+  status_command i3blocks -c ~/.i3/blocks
+  position top
+  font pango:Roboto Mono 12
+  colors {
+    statusline $c_text
+    background $c_background
+    #                   Border              Background              Text
+    focused_workspace   $c_border_focused   $c_background_focused   $c_text_focused
+    urgent_workspace    $c_border_urgent    $c_background_urgent    $c_text_urgent
+    inactive_workspace  $c_border_inactive  $c_background_inactive  $c_text_inactive
+  }
+}
+
+#################################
+##  Window specific   #
+#################################
+
+#for_window [class="Browser"] move container to workspace $w1
+for_window [class="Steam"] move container to workspace $w2
+for_window [class="Skype"] move container to workspace $w3
+for_window [class="Spotify"] move container to workspace $w4
+#for_window [class="Text"] move container to workspace $w5
+for_window [class="Terminator"] move container to workspace $w6
+#for_window [class="Counter-Strike"] move container to workspace $w10

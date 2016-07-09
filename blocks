@@ -1,0 +1,68 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+
+# Global properties
+
+command=/usr/lib/i3blocks/$BLOCK_NAME
+separator_block_width=15
+markup=none
+
+[docker]
+interval=30
+command=echo "$([[ -f /var/run/docker.pid ]] && echo 'Docker is active')"
+
+
+# Volume indicator
+#
+# The first parameter sets the step (and units to display)
+# The second parameter overrides the mixer selection
+# See the script for details.
+[volume]
+#label=♪
+signal=10
+#label=
+label=Volume
+command=echo "$(pamixer --get-volume)%"
+signal=10
+interval=1
+
+# Memory usage
+
+#[memory]
+#label=RAM
+#separator=false
+#interval=30
+
+# Network interface monitoring
+
+#[iface]
+#color=#00FF00
+#label=
+#interval=10
+
+# Date Time
+
+[date]
+command=date '+%Y-%m-%d'
+#label=
+interval=60
+
+[separator]
+
+[time]
+command=date '+%H:%M'
+#label=
+interval=5
+
+
+# Generic media player support
+#
+# This displays "ARTIST - SONG" if a music is playing.
+# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
+
+#[mediaplayer]
+#instance=spotify
+#interval=5
+#signal=10

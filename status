@@ -1,0 +1,37 @@
+general {
+	colors = true
+	interval = 1
+
+	color_good = 		"#FFCDD2"
+	color_degraded = 	"#E57373"
+	color_bad = 		"#E57373"
+}
+
+order += "disk /"
+disk "/" { format = "%avail of %total" }
+
+#order += "wireless wlp2s0"
+wireless wlp2s0 {
+	format_up = "Connected to %essid"
+	format_down = "No wireless"
+}
+
+order += "ethernet enp8s0"
+ethernet enp8s0 {
+	format_up = "Ethernet connected"
+	format_down = "No ethernet"
+}
+
+order += "volume master"
+volume master {
+	format = "Volume: %volume"
+	device = "default"
+	mixer = "Master"
+#	mixer_idx = 0
+}
+
+#order += "battery 0"
+battery 0 { format = "Battery %percentage %remaining" }
+
+order += "tztime local"
+tztime local { format = "%Y-%m-%d %H:%M" }
