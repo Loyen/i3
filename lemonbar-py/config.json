@@ -1,0 +1,39 @@
+{
+	"settings": {
+		"foreground": "#eeeeee",
+		"background": "#554433"
+	},
+	"items": [
+		{
+			"command": "workspaces",
+			"interval": "1s",
+			"position": "left",
+			"active": {
+				"foreground": "#ffffff",
+				"background": "#ee3333"
+			},
+			"inactive": {
+				"foreground": "#ffffff",
+				"background": "#663333"
+			}
+		},
+		{
+			"command": "volume",
+			"format": "",
+			"interval": "0s",
+			"position": "right"
+		},
+		{
+			"command": "time",
+			"format": "%Y-%m-%d",
+			"interval": "5s",
+			"position": "right"
+		},
+		{
+			"command": "time",
+			"format": "%Y-%m-%d",
+			"interval": "1s",
+			"position": "right"
+		}
+	]
+}
