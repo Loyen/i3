@@ -5,11 +5,31 @@ import blocks
 import json
 
 def render(item, settings):
-	command=item["command"]
 	try:
-		return eval("blocks.block_"+command+"(item, settings)")
+		if item["command"]:
+			command=item["command"]
+			del item["command"]
+			try:
+				item = eval("blocks.block_"+command+"(item, settings)")
+			except:
+				pass
 	except:
-		return ""
+		pass
+
+	output=""
+
+	try:
+		if item["items"]:
+			for item_item in item["items"]:
+				output+=render(item_item, settings)
+	except:
+		try:
+			if item["output"]:
+				output+=item["output"]
+		except:
+			pass
+
+	return output
 
 def main():
 	config_json = open("config.json", "r")

@@ -8,24 +8,29 @@ import shell
 import lemonbar
 
 def block_workspaces(item, settings):
-	output=""
+	workspace_items=[]
 
 	workspaces=i3.get_workspaces()
 	for workspace in workspaces:
+		workspace_item={}
 		if workspace["focused"] == True:
-			output+=">"
+			workspace_item["foreground"] = item["active_foreground"]
+			workspace_item["background"] = item["active_background"]
 
-		output += workspace["name"]
+		workspace_item["output"] = workspace["name"]
 
-		if workspace["focused"] == True:
-			output+="<"
+		workspace_items.append(workspace_item)
 
-	return output
+	item["items"] = workspace_items
+	return item
 
 def block_volume(item, settings):
 	volume = shell.exec("pamixer --get-volume")
-	return str(volume)+"%"
+	item["output"] = str(volume)+"%"
+
+	return item
 
 def block_time(item, settings):
-	return time.strftime(item["format"])
+	item["output"] = time.strftime(item["format"])
+	return item
 
