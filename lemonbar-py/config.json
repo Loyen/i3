@@ -8,11 +8,14 @@
 			"command": "workspaces",
 			"interval": "1s",
 			"position": "left",
-			"foreground": "#ffffff",
-			"background": "#663333",
-
-			"active_foreground": "#ffffff",
-			"active_background": "#ee3333"
+			"active": {
+				"foreground": "#ffffff",
+				"background": "#ee3333"
+			},
+			"inactive": {
+				"foreground": "#ffffff",
+				"background": "#663333"
+			}
 		},
 		{
 			"command": "volume",

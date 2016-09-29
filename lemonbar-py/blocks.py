@@ -14,8 +14,19 @@ def block_workspaces(item, settings):
 	for workspace in workspaces:
 		workspace_item={}
 		if workspace["focused"] == True:
-			workspace_item["foreground"] = item["active_foreground"]
-			workspace_item["background"] = item["active_background"]
+			try:
+				workspace_item["foreground"] = item["active"]["foreground"]
+				workspace_item["background"] = item["active"]["background"]
+			except:
+				workspace_item["foreground"] = settings["foreground"]
+				workspace_item["background"] = settings["background"]
+		else:
+			try:
+				workspace_item["foreground"] = item["inactive"]["foreground"]
+				workspace_item["background"] = item["inactive"]["background"]
+			except:
+				workspace_item["foreground"] = settings["foreground"]
+				workspace_item["background"] = settings["background"]
 
 		workspace_item["output"] = workspace["name"]
 

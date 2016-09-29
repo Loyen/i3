@@ -1,45 +1,63 @@
 #!/bin/python
 
-# Custom libs
-import blocks
 import json
 
+# Custom libs
+import blocks
+import lemonbar
+
 def render(item, settings):
-	try:
-		if item["command"]:
-			command=item["command"]
-			del item["command"]
-			try:
-				item = eval("blocks.block_"+command+"(item, settings)")
-			except:
-				pass
-	except:
-		pass
-
 	output=""
+	if "output" in item:
+		if "foreground" in item:
+			output+=lemonbar.text_color(item["foreground"])
 
-	try:
-		if item["items"]:
-			for item_item in item["items"]:
-				output+=render(item_item, settings)
-	except:
-		try:
-			if item["output"]:
-				output+=item["output"]
-		except:
-			pass
+		if "background" in item:
+			output+=lemonbar.background_color(item["background"])
+
+		if "position" in item:
+			output+=lemonbar.position(item["position"])
+
+		output+=item["output"]
 
 	return output
 
-def main():
-	config_json = open("config.json", "r")
-	config = json.loads(config_json.read());
+def parse(item, settings):
+	if "command" in item:
+		command=item["command"]
+		del item["command"]
+		try:
+			item = eval("blocks.block_"+command+"(item, settings)")
+		except:
+			pass
 
 	output=""
-	for item in config["items"]:
-		output+=render(item, config["settings"])
 
-	print(output)
+	if "items" in item:
+		items = item["items"]
+		del item["items"]
+		item_settings=settings
+		for setting,value in item:
+			item_settings[setting] = value
+
+		for item_item in list.items:
+			output+=parse(item_item, item_settings)
+	elif "output" in item:
+			output+=render(item, settings)
+
+	return output
+
+
+def main():
+	#while True:
+		config_json = open("config.json", "r")
+		config = json.loads(config_json.read());
+
+		output=""
+		for item in config["items"]:
+			output+=parse(item, config["settings"])
+
+		print(output)
 
 if __name__ == "__main__":
 	main()
