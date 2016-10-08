@@ -20,6 +20,12 @@ def render(item, settings):
 
 		output+=item["output"]
 
+	if "foreground" in settings:
+		output+=lemonbar.background_color(settings["foreground"])
+
+	if "background" in settings:
+		output+=lemonbar.background_color(settings["background"])
+
 	return output
 
 def parse(item, settings):
@@ -37,25 +43,30 @@ def parse(item, settings):
 		items = item["items"]
 		del item["items"]
 		item_settings=settings
-		for setting,value in item:
+		for setting,value in item.items():
 			item_settings[setting] = value
 
-		for item_item in list.items:
+		for item_item in items:
 			output+=parse(item_item, item_settings)
 	elif "output" in item:
-			output+=render(item, settings)
+		item_settings=settings
+		for setting,value in item.items():
+			item_settings[setting] = value
+
+		output+=render(item, item_settings)
 
 	return output
 
 
 def main():
-	#while True:
+	while True:
 		config_json = open("config.json", "r")
 		config = json.loads(config_json.read());
 
 		output=""
 		for item in config["items"]:
 			output+=parse(item, config["settings"])
+			#output+="\n"
 
 		print(output)
 
